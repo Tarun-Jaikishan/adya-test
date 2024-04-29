@@ -86,7 +86,7 @@ const login = async (req, res) => {
         .json({ error: true, message: "Invalid Credentials" });
 
     const userInfo = await userModel
-      .findOne({ username: value.username }, { role: 1, username: 1 })
+      .findOne({ username: value.username }, { _id: 0, role: 1, username: 1 })
       .lean();
 
     const accesstoken = jwt.sign(
@@ -200,4 +200,31 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { register, login, userInfo, changePassword, logout };
+// POST -> /api/auth/generate-token + REFRESH TOKEN
+const generateToken = async (req, res) => {
+  try {
+    const { username, role } = req.user;
+    const accesstoken = jwt.sign(
+      { username, role, access: true },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    res.status(200).cookie("access_token", accesstoken);
+    res.status(200).json({ error: false, message: "Token Generated" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: true, message: "Internal Server Error" });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  userInfo,
+  changePassword,
+  logout,
+  generateToken,
+};
