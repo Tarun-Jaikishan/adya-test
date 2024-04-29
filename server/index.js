@@ -29,13 +29,14 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-app.use(morgan("short", { stream: accessLogStream }));
+// app.use(morgan("short", { stream: accessLogStream }));
+app.use(morgan("short"));
 
 // Routes
 
 app.get("/", (req, res) => {
   try {
-    res.status(200).json({ message: "Welcome To Adya API" });
+    res.status(200).json({ message: "Welcome To Restaurant Reservation API" });
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
   }
