@@ -40,6 +40,7 @@ const register = async (req, res) => {
       res.status(400).json({ error: true, message: "Something Went Wrong" });
   } catch (err) {
     // Validate Duplicates
+    console.log(err);
     if (err.errorResponse.code === 11000 && err.errorResponse.keyValue.username)
       return res
         .status(409)
@@ -56,7 +57,6 @@ const register = async (req, res) => {
         .status(409)
         .json({ error: true, message: "Email Already Exists" });
 
-    console.log(err);
     res.status(500).json({ error: true, message: "Internal Server Error" });
   }
 };
@@ -162,7 +162,10 @@ const changePassword = async (req, res) => {
       }
     );
 
-    if (!response) return res.status(200).json(response);
+    if (!response)
+      return res
+        .status(400)
+        .json({ error: true, message: "Something Went Wrong" });
 
     res.status(200).json({ error: false, message: "Password Changed" });
   } catch (err) {
@@ -185,7 +188,12 @@ const logout = async (req, res) => {
       }
     );
 
-    if (response) res.status(200).json(response);
+    if (!response)
+      return res
+        .status(400)
+        .json({ error: true, message: "Something Went Wrong" });
+
+    res.status(200).json({ error: false, message: "Logout Successful" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: true, message: "Internal Server Error" });
