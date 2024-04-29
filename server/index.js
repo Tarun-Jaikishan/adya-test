@@ -34,8 +34,10 @@ app.use(morgan("short"));
 
 // Routes
 const authRouter = require("./routes/auth.routes");
+const commonRouter = require("./routes/common.routes");
 
 app.use("/api/auth", authRouter);
+app.use("/api/common", commonRouter);
 
 app.get("/", (req, res) => {
   try {
