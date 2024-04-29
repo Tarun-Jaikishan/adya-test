@@ -5,6 +5,9 @@ const {
   listRestaurant,
   generateSlots,
   generateTables,
+  bookSlot,
+  bookingHistory,
+  rateRestaurant,
 } = require("../controllers/customer.controller");
 
 const { verifyAccessToken } = require("../middlewares/verifyAccessToken");
@@ -15,12 +18,12 @@ router.use(verifyAccessToken(["customer"]));
 
 router.route("/").get(listRestaurant);
 
-router.route("/booking").post(listRestaurant).get();
+router.route("/booking").post(bookSlot).get(bookingHistory);
 
 router.route("/tables").get(generateTables);
 
 router.route("/slots").get(generateSlots);
 
-router.route("/rate").post(listRestaurant);
+router.route("/rating").put(rateRestaurant);
 
 module.exports = router;
