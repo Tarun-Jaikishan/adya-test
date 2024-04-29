@@ -1,16 +1,5 @@
 const { Schema } = require("mongoose");
 
-const ratingSchema = Schema(
-  {
-    ratedBy: {
-      type: String,
-      required: true,
-    },
-    value: { type: Number, required: true }, // rating value
-  },
-  { _id: false, timestamps: true }
-);
-
 const restaurantSchema = Schema(
   {
     name: {
@@ -31,10 +20,6 @@ const restaurantSchema = Schema(
         type: String,
         required: true,
       },
-    },
-    ratingInfo: {
-      type: [ratingSchema],
-      default: [],
     },
     rating: {
       type: Number,

@@ -3,6 +3,6 @@ const router = express.Router();
 
 // ROUTE -> api/customer
 
-router.route("/register").post(register);
+router.route("/").post(register);
 
 module.exports = router;
