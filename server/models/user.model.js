@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "restaurant-owner", "customer"],
       message: "",
     },
+    lastLogin: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );

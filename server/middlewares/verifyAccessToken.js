@@ -5,10 +5,18 @@ const verifyAccessToken = async (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
     const verify = jwt.verify(token, process.env.JWT_KEY);
 
-    return res.status(401).json({ error: "API Service Forbidden" });
+    if (!verify.access)
+      return res
+        .status(403)
+        .json({ error: true, message: "API Service Forbidden" });
+
+    req.user = verify;
+    next();
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ error: "Internal Server Error", err });
+    return res
+      .status(500)
+      .json({ error: true, message: "Internal Server Error" });
   }
 };
 

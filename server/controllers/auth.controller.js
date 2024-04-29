@@ -1,15 +1,21 @@
 const bcrypt = require("bcrypt");
-
-const { registerSchema } = require("../utils/schema-validators/auth.schema");
+const jwt = require("jsonwebtoken");
 
 const { userModel } = require("../models/user.model");
 const { authModel } = require("../models/auth.model");
+
+const {
+  registerSchema,
+  loginSchema,
+} = require("../utils/schema-validators/auth.schema");
+
 const { hashPassword } = require("../utils/hash-password");
 
 // POST -> /api/auth/register
 const register = async (req, res) => {
   try {
     const data = req.body;
+
     const { error, value } = registerSchema.validate(data);
 
     let authData = {
@@ -51,10 +57,140 @@ const register = async (req, res) => {
         .json({ error: true, message: "Email Already Exists" });
 
     console.log(err);
-    res
-      .status(500)
-      .json({ error: true, message: "Internal Server Error", err });
+    res.status(500).json({ error: true, message: "Internal Server Error" });
   }
 };
 
-module.exports = { register };
+// POST -> /api/auth/login
+const login = async (req, res) => {
+  try {
+    const data = req.body;
+
+    const { error, value } = loginSchema.validate(data);
+
+    if (error)
+      return res
+        .status(404)
+        .json({ error: true, message: "Invalid Credentials" });
+
+    const response = await authModel.findOne({ username: value.username });
+
+    const passwordMatch = await bcrypt.compare(
+      value.password,
+      response && response.password ? response.password : ""
+    );
+
+    if (!response || !passwordMatch)
+      return res
+        .status(404)
+        .json({ error: true, message: "Invalid Credentials" });
+
+    const userInfo = await userModel
+      .findOne({ username: value.username }, { role: 1, username: 1 })
+      .lean();
+
+    const accesstoken = jwt.sign(
+      { ...userInfo, access: true },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    const refreshtoken = jwt.sign(
+      { ...userInfo, access: false },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "30d",
+      }
+    );
+
+    res.status(200).cookie("access_token", accesstoken);
+    res.status(200).cookie("refresh_token", refreshtoken);
+    res.status(200).json({ error: false, message: "Login Successful" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: true, message: "Internal Server Error" });
+  }
+};
+
+// GET -> /api/auth + BEARER TOKEN
+const userInfo = async (req, res) => {
+  try {
+    const { username } = req.user;
+    const { confirm_password } = req.body;
+
+    if (!confirm_password)
+      return res
+        .status(400)
+        .json({ error: true, message: "Please Provide Confirm Password" });
+
+    const hashedPassword = await hashPassword(confirm_password);
+
+    const response = await authModel.findOneAndUpdate(
+      { username },
+      {
+        $set: {
+          password: hashedPassword,
+        },
+      }
+    );
+
+    res.status(200).json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: true, message: "Internal Server Error" });
+  }
+};
+
+// PUT -> /api/auth/change-password + BEARER TOKEN
+const changePassword = async (req, res) => {
+  try {
+    const { username } = req.user;
+    const { confirm_password } = req.body;
+
+    if (!confirm_password)
+      return res
+        .status(400)
+        .json({ error: true, message: "Please Provide Confirm Password" });
+
+    const hashedPassword = await hashPassword(confirm_password);
+
+    const response = await authModel.findOneAndUpdate(
+      { username },
+      {
+        $set: {
+          password: hashedPassword,
+        },
+      }
+    );
+
+    res.status(200).json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: true, message: "Internal Server Error" });
+  }
+};
+
+// PUT -> /api/auth/logout + BEARER TOKEN
+const logout = async (req, res) => {
+  try {
+    const { username } = req.user;
+
+    const response = await userModel.findOneAndUpdate(
+      { username },
+      {
+        $set: {
+          lastLogin: Date.now(),
+        },
+      }
+    );
+
+    res.status(200).json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: true, message: "Internal Server Error" });
+  }
+};
+
+module.exports = { register, login, userInfo, changePassword, logout };
