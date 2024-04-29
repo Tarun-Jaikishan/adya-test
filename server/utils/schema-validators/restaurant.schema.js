@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const restaurantSchema = Joi.object({
-  name: Joi.string().alphanum().required(),
-  cuisine_type: Joi.string().max(50).required(),
+  name: Joi.string().required(),
+  cuisine_type: Joi.string().required(),
   location: Joi.object({
     city: Joi.string().required(),
     state: Joi.string().required(),

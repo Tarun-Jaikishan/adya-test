@@ -35,9 +35,12 @@ app.use(morgan("short"));
 // Routes
 const authRouter = require("./routes/auth.routes");
 const commonRouter = require("./routes/common.routes");
+const adminRouter = require("./routes/admin.routes");
+const { setUpAdmin } = require("./config/admin.config");
 
 app.use("/api/auth", authRouter);
 app.use("/api/common", commonRouter);
+app.use("/api/admin", adminRouter);
 
 app.get("/", (req, res) => {
   try {
@@ -54,6 +57,7 @@ const port = process.env.PORT || 3000;
 app.listen(port, async () => {
   try {
     await mongoConnect(process.env.DB);
+    await setUpAdmin();
     console.log("Server Running on PORT", port);
   } catch (err) {
     console.log(err);

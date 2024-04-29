@@ -1,6 +1,50 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
 
-const restaurantSchema = Schema(
+const slots = [
+  "00",
+  "01",
+  "02",
+  "03",
+  "04",
+  "05",
+  "06",
+  "07",
+  "08",
+  "09",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "15",
+  "16",
+  "17",
+  "18",
+  "19",
+  "20",
+  "21",
+  "22",
+  "23",
+];
+
+const tableSchema = mongoose.Schema(
+  {
+    tableSize: {
+      type: Number,
+      min: 2,
+      required: true,
+      unique: true,
+    },
+    count: {
+      type: Number,
+      min: 2,
+      required: true,
+    },
+  },
+  { _id: false }
+);
+
+const restaurantSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -11,6 +55,22 @@ const restaurantSchema = Schema(
       type: String,
       required: true,
     },
+
+    timing: {
+      from: {
+        type: String,
+        enum: slots,
+        message: "Invalid Slot",
+        default: "00",
+      },
+      to: {
+        type: String,
+        enum: slots,
+        message: "Invalid Slot",
+        default: "23",
+      },
+    },
+
     location: {
       city: {
         type: String,
@@ -21,9 +81,21 @@ const restaurantSchema = Schema(
         required: true,
       },
     },
+
+    table: {
+      type: [tableSchema],
+      default: [{ tableSize: 2, count: 2 }],
+    },
+
     rating: {
-      type: Number,
-      default: 0,
+      value: {
+        type: Number,
+        default: 0,
+      },
+      count: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   { timestamps: true }

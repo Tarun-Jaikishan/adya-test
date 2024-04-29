@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-const slotSchema = mongoose.Schema(
-  {
-    from: {
-      type: String,
-      required: true,
-    },
-    value: { type: Number, required: true }, // rating value
-  },
-  { _id: false, timestamps: true }
-);
-
 const reservationSchema = new mongoose.Schema(
   {
     restaurantId: {
