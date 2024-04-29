@@ -118,25 +118,16 @@ const login = async (req, res) => {
 const userInfo = async (req, res) => {
   try {
     const { username } = req.user;
-    const { confirm_password } = req.body;
 
-    if (!confirm_password)
-      return res
-        .status(400)
-        .json({ error: true, message: "Please Provide Confirm Password" });
-
-    const hashedPassword = await hashPassword(confirm_password);
-
-    const response = await authModel.findOneAndUpdate(
+    const response = await userModel.findOne(
       { username },
-      {
-        $set: {
-          password: hashedPassword,
-        },
-      }
+      { __v: 0, updatedAt: 0, createdAt: 0, _id: 0 }
     );
 
-    res.status(200).json(response);
+    if (!response)
+      return res.status(404).json({ error: true, message: "No User Found" });
+
+    res.status(200).json({ error: false, data: response });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: true, message: "Internal Server Error" });
@@ -154,6 +145,12 @@ const changePassword = async (req, res) => {
         .status(400)
         .json({ error: true, message: "Please Provide Confirm Password" });
 
+    if (confirm_password.length > 20 || confirm_password.length < 6)
+      return res.status(400).json({
+        error: true,
+        message: "Confirm Password Length Must Be Between 6 and 20",
+      });
+
     const hashedPassword = await hashPassword(confirm_password);
 
     const response = await authModel.findOneAndUpdate(
@@ -165,7 +162,9 @@ const changePassword = async (req, res) => {
       }
     );
 
-    res.status(200).json(response);
+    if (!response) return res.status(200).json(response);
+
+    res.status(200).json({ error: false, message: "Password Changed" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: true, message: "Internal Server Error" });
@@ -186,7 +185,7 @@ const logout = async (req, res) => {
       }
     );
 
-    res.status(200).json(response);
+    if (response) res.status(200).json(response);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: true, message: "Internal Server Error" });
