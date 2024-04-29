@@ -33,10 +33,15 @@ const accessLogStream = fs.createWriteStream(
 app.use(morgan("short"));
 
 // Routes
+const authRouter = require("./routes/auth.routes");
+
+app.use("/api/auth", authRouter);
 
 app.get("/", (req, res) => {
   try {
-    res.status(200).json({ message: "Welcome To Restaurant Reservation API" });
+    res
+      .status(200)
+      .json({ error: false, message: "Welcome To Restaurant Reservation API" });
   } catch (err) {
     res.status(500).json({ error: "Internal Server Error" });
   }
