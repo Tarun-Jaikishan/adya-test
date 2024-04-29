@@ -14,11 +14,11 @@ const reservationSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
-    seater: {
-      type: Number,
+    tableId: {
+      type: String,
       required: true,
     },
-    tableId: {
+    dateOfBooking: {
       type: String,
       required: true,
     },

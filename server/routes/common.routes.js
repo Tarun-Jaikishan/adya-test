@@ -5,6 +5,7 @@ const {
   locationData,
   filterRestaurant,
 } = require("../controllers/common.controller");
+
 const { verifyAccessToken } = require("../middlewares/verifyAccessToken");
 
 // ROUTE -> api/common

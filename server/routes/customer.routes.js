@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { listRestaurant } = require("../controllers/customer.controller");
+const {
+  listRestaurant,
+  generateSlots,
+  generateTables,
+} = require("../controllers/customer.controller");
 
 const { verifyAccessToken } = require("../middlewares/verifyAccessToken");
 
@@ -10,5 +14,13 @@ router.use(verifyAccessToken(["customer"]));
 // ROUTE -> api/customer
 
 router.route("/").get(listRestaurant);
+
+router.route("/booking").post(listRestaurant).get();
+
+router.route("/tables").get(generateTables);
+
+router.route("/slots").get(generateSlots);
+
+router.route("/rate").post(listRestaurant);
 
 module.exports = router;
