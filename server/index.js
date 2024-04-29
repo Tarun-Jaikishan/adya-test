@@ -10,6 +10,7 @@ const path = require("path");
 const morgan = require("morgan");
 
 const { mongoConnect } = require("./config/mongo.config");
+const { setUpAdmin } = require("./config/admin.config");
 
 const app = express();
 
@@ -36,11 +37,12 @@ app.use(morgan("short"));
 const authRouter = require("./routes/auth.routes");
 const commonRouter = require("./routes/common.routes");
 const adminRouter = require("./routes/admin.routes");
-const { setUpAdmin } = require("./config/admin.config");
+const customerRouter = require("./routes/customer.routes");
 
 app.use("/api/auth", authRouter);
 app.use("/api/common", commonRouter);
 app.use("/api/admin", adminRouter);
+app.use("/api/customer", customerRouter);
 
 app.get("/", (req, res) => {
   try {

@@ -33,7 +33,6 @@ const tableSchema = mongoose.Schema(
       type: Number,
       min: 2,
       required: true,
-      unique: true,
     },
     count: {
       type: Number,
@@ -84,7 +83,11 @@ const restaurantSchema = new mongoose.Schema(
 
     table: {
       type: [tableSchema],
-      default: [{ tableSize: 2, count: 2 }],
+      default: [
+        { tableSize: 2, count: 2 },
+        { tableSize: 4, count: 2 },
+        { tableSize: 6, count: 2 },
+      ],
     },
 
     rating: {
