@@ -10,9 +10,19 @@ import {
 } from "../../components/common/Icons";
 import { convert24to12 } from "../../utils/moment.util";
 
-export default function Card({ name, cuisine, location, timings, rating = 1 }) {
+export default function Card({
+  name,
+  cuisine,
+  location,
+  timings,
+  rating = 1,
+  id,
+}) {
   return (
-    <button className="relative rounded shadow-lg hover:scale-105 duration-300 w-[20rem]">
+    <button
+      onClick={() => {}}
+      className="relative rounded shadow-lg hover:scale-105 duration-300 w-[20rem]"
+    >
       <div className="w-[20rem] rounded-t">
         <img src={image} alt="Image" className="rounded-t" />
       </div>
@@ -28,7 +38,7 @@ export default function Card({ name, cuisine, location, timings, rating = 1 }) {
       )}
       <div className="!absolute flex top-[12.5rem] right-2 bg-white items-center gap-1 p-1 rounded shadow-lg text-black text-xs font-semibold">
         <FaRegClock />
-        {convert24to12(timings?.from)} - {convert24to12(timings?.from)}
+        {convert24to12(timings?.from)} - {convert24to12(timings?.to)}
       </div>
 
       <div className="bg-white text-black p-3 rounded-b">

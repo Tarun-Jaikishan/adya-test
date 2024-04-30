@@ -1,4 +1,4 @@
-import { FaRegClock, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+import { FaLock, FaRegClock, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoLocation } from "react-icons/io5";
 import { MdOutlineWbSunny } from "react-icons/md";
@@ -12,4 +12,5 @@ export {
   IoLocation,
   FaRegClock,
   MdOutlineWbSunny,
+  FaLock,
 };
