@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import sidePhoto from "../../assets/restaurant1.jpg";
 import Button from "../../components/common/forms/Button";
 import TextField from "../../components/common/forms/TextField";
-import { signInValidation } from "../../utils/validators/auth.validator";
+import { signUpValidation } from "../../utils/validators/auth.validator";
 import ErrMessage from "../../components/common/forms/ErrMessage";
 
 export default function RegisterPage() {
@@ -19,7 +19,7 @@ export default function RegisterPage() {
 
   const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues,
-    validationSchema: signInValidation,
+    validationSchema: signUpValidation,
     validateOnChange: false,
     onSubmit: (values) => {
       console.log(values);
@@ -36,28 +36,32 @@ export default function RegisterPage() {
 
       <div className="flex flex-1 justify-center items-center">
         <div>
-          <h1 className="font-diney text-5xl">Welcome To Dinney,</h1>
+          <h1 className="text-center font-diney text-5xl">
+            Welcome To Dinney,
+          </h1>
 
           <form
             onSubmit={handleSubmit}
             className="mt-3 px-10 py-7 bg-black rounded shadow-lg space-y-5"
           >
-            <InputGroup
-              title={"Username"}
-              handleChange={handleChange}
-              name={"username"}
-              value={values.username}
-              errors={errors.username}
-              placeholder={"Enter Username"}
-            />
-            <InputGroup
-              title={"Name"}
-              handleChange={handleChange}
-              name={"name"}
-              value={values.name}
-              errors={errors.name}
-              placeholder={"Enter Name"}
-            />
+            <div className="flex items-center justify-center gap-3">
+              <InputGroup
+                title={"Username"}
+                handleChange={handleChange}
+                name={"username"}
+                value={values.username}
+                errors={errors.username}
+                placeholder={"Enter Username"}
+              />
+              <InputGroup
+                title={"Name"}
+                handleChange={handleChange}
+                name={"name"}
+                value={values.name}
+                errors={errors.name}
+                placeholder={"Enter Name"}
+              />
+            </div>
             <InputGroup
               title={"Phone Number"}
               handleChange={handleChange}
@@ -83,6 +87,7 @@ export default function RegisterPage() {
               value={values.password}
               errors={errors.password}
               placeholder={"Enter Password"}
+              inputType="password"
             />
             <InputGroup
               title={"Confirm Password"}
@@ -91,6 +96,7 @@ export default function RegisterPage() {
               value={values.confirm_password}
               errors={errors.confirm_password}
               placeholder={"Enter Confirm Password"}
+              inputType="password"
             />
             <div>
               <Button type="submit" customStyle="mt-1 w-full" name="Sign In" />

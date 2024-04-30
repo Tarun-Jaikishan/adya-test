@@ -1,13 +1,18 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 import sidePhoto from "../../assets/restaurant1.jpg";
 import Button from "../../components/common/forms/Button";
 import TextField from "../../components/common/forms/TextField";
 import { signInValidation } from "../../utils/validators/auth.validator";
 import ErrMessage from "../../components/common/forms/ErrMessage";
+import { setOffLoading, setOnLoading } from "../../redux/loadingSlice";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
+
   const initialValues = {
     username: "",
     password: "",
@@ -17,8 +22,17 @@ export default function LoginPage() {
     initialValues,
     validationSchema: signInValidation,
     validateOnChange: false,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      dispatch(setOnLoading());
+      try {
+        const api = import.meta.env.VITE_API_LINK + "/auth/login";
+        const response = await axios.post(api, values);
+        if (response.status === 200) console.log("yes");
+      } catch (err) {
+        console.log("here");
+        console.log(err);
+      }
+      dispatch(setOffLoading());
     },
   });
 
@@ -32,7 +46,9 @@ export default function LoginPage() {
 
       <div className="flex flex-1 justify-center items-center">
         <div>
-          <h1 className="font-diney text-5xl">Welcome To Dinney,</h1>
+          <h1 className="text-center font-diney text-5xl">
+            Welcome To Dinney,
+          </h1>
 
           <form
             onSubmit={handleSubmit}

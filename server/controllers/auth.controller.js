@@ -35,7 +35,7 @@ const register = async (req, res) => {
       const hashedPassword = await hashPassword(authData.password);
       authData.password = hashedPassword;
       await authModel.create(authData);
-      res.status(201).json({ error: false, message: "Account Created" });
+      res.status(200).json({ error: false, message: "Account Created" });
     } else
       res.status(400).json({ error: true, message: "Something Went Wrong" });
   } catch (err) {
@@ -105,8 +105,12 @@ const login = async (req, res) => {
       }
     );
 
-    res.status(200).cookie("access_token", accesstoken);
-    res.status(200).cookie("refresh_token", refreshtoken);
+    res
+      .status(200)
+      .cookie("access_token", accesstoken, { maxAge: 1000 * 60 * 60 * 24 }); // 24 hours
+    res.status(200).cookie("refresh_token", refreshtoken, {
+      maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+    });
     res.status(200).json({ error: false, message: "Login Successful" });
   } catch (err) {
     console.log(err);
