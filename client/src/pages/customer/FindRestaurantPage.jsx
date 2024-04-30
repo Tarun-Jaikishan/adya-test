@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { ax } from "../../utils/axios.util";
 
 import Card from "../../components/common/Card";
 import TextField from "../../components/common/forms/TextField";
 import Button from "../../components/common/forms/Button";
-import { useDispatch } from "react-redux";
-import { setOffLoading, setOnLoading } from "../../redux/loadingSlice";
 import Select from "../../components/common/forms/Select";
+import { setOffLoading, setOnLoading } from "../../redux/loadingSlice";
 
 export default function FindRestaurantPage() {
   const dispatch = useDispatch();
@@ -36,11 +36,11 @@ export default function FindRestaurantPage() {
     getRestaurant();
   };
 
-  const getRestaurant = async () => {
+  const getRestaurant = async (findAll = false) => {
     dispatch(setOnLoading());
     try {
       const response = await ax.get("/common/restaurant", {
-        params: searchForm,
+        params: !findAll ? searchForm : null,
       });
       if (response.status === 200) setData(response.data.data);
     } catch (err) {
@@ -86,6 +86,7 @@ export default function FindRestaurantPage() {
             onChange={handleChange}
             placeholder="Enter Cuisine Type"
           />
+
           <Select
             name={"state"}
             onChange={handleChange}
@@ -102,6 +103,7 @@ export default function FindRestaurantPage() {
               );
             })}
           </Select>
+
           <Select
             name={"city"}
             onChange={handleChange}
@@ -126,7 +128,7 @@ export default function FindRestaurantPage() {
           <Button
             onClick={() => {
               setSearchForm(initialSearchState);
-              getRestaurant();
+              getRestaurant(true);
             }}
             type="reset"
             name={"Reset"}
