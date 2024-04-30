@@ -21,6 +21,7 @@ import { convert24to12 } from "../../utils/moment.util";
 import Button from "../../components/common/forms/Button";
 import {
   removeSlot,
+  resetData,
   setDate,
   setSlot,
   setTable,
@@ -101,6 +102,7 @@ export default function ReservePage() {
       });
       if (response.status === 200) {
         toast.success(response.data.message);
+        setOpenDialog(true);
       }
     } catch (err) {
       console.log(err);
@@ -119,6 +121,7 @@ export default function ReservePage() {
       if (response.status === 200) {
         setOpenDialog(false);
         toast.success(response.data.message);
+        dispatch(resetData());
         navigate("/dashboard");
       }
     } catch (err) {
@@ -127,6 +130,7 @@ export default function ReservePage() {
     dispatch(setOffLoading());
   };
 
+  // To Fetch Tables of a Restaurant
   useEffect(() => {
     if (!callOnce.current) {
       callOnce.current = true;
@@ -175,11 +179,13 @@ export default function ReservePage() {
           </div>
         </div>
       </div>
+
       <br />
       <hr />
       <br />
+
       <div className="flex">
-        {/* For Slot */}
+        {/* For Slots */}
         {page === 1 && (
           <div className="flex flex-col border-r h-full p-5">
             <label className="font-dinney">Select Your Date</label>
@@ -194,7 +200,7 @@ export default function ReservePage() {
           </div>
         )}
 
-        {/* Tables */}
+        {/* For Tables */}
         {page === 0 && (
           <div className="p-5">
             <h3 className="text-3xl font-dinney">Tables</h3>
@@ -219,7 +225,7 @@ export default function ReservePage() {
           </div>
         )}
 
-        {/* Slots */}
+        {/* For Slots */}
         {page === 1 && (
           <div className="p-5">
             <h3 className="text-3xl font-dinney">Slots</h3>
@@ -260,12 +266,12 @@ export default function ReservePage() {
         </div>
       )}
 
-      {/* For Slot */}
+      {/* For Slots */}
       {page === 1 && (
         <div className="flex justify-end gap-5  bg-gray-700 w-full p-5">
           <Button
             disabled={!restaurantData?.slots[0]}
-            onClick={() => {}}
+            onClick={reserveSlot}
             name={"Confirm"}
           />
           <Button
@@ -278,8 +284,9 @@ export default function ReservePage() {
         </div>
       )}
 
+      {/* DialogBox For Rating */}
       <DialogBox
-        open={!openDialog}
+        open={openDialog}
         doNotClose={true}
         setOpen={setOpenDialog}
         title={"Please Provide Rating !"}
@@ -292,6 +299,7 @@ export default function ReservePage() {
             value={value}
             onChange={(event, newValue) => {
               setValue(newValue);
+              rating(Number(newValue));
             }}
           />
         </div>

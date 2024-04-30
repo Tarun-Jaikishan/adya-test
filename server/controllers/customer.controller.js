@@ -82,7 +82,7 @@ const generateSlots = async (req, res) => {
       })
       .filter((slot) => slot != null);
 
-    const bookings = await reservationModel.findOne(
+    let bookings = await reservationModel.find(
       {
         restaurantId: value.id,
         dateOfBooking: value.dateOfBooking,
@@ -91,10 +91,13 @@ const generateSlots = async (req, res) => {
       { slots: 1 }
     );
 
-    if (bookings)
-      bookings.slots.forEach((item) => {
+    if (bookings) {
+      bookings = bookings.map((item) => item.slots[0]);
+
+      bookings.forEach((item) => {
         generalSlots = generalSlots.filter((innerItem) => item !== innerItem);
       });
+    }
 
     // if (bookings.length === 0)
     return res.status(200).json({ error: false, data: generalSlots });
