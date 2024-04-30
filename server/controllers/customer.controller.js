@@ -12,7 +12,7 @@ const listRestaurant = async (req, res) => {
     const response = await restaurantModel
       .find({}, { __v: 0, updatedAt: 0 })
       .sort({ "rating.value": -1 })
-      .limit(3);
+      .limit(4);
 
     res.status(200).json({ error: false, data: response });
   } catch (err) {

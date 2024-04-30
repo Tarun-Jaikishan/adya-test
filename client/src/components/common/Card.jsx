@@ -9,6 +9,7 @@ import {
   MdOutlineWbSunny,
 } from "../../components/common/Icons";
 import { convert24to12 } from "../../utils/moment.util";
+import { useNavigate } from "react-router-dom";
 
 export default function Card({
   name,
@@ -18,9 +19,11 @@ export default function Card({
   rating = 1,
   id,
 }) {
+  const navigate = useNavigate();
+
   return (
     <button
-      onClick={() => {}}
+      onClick={() => navigate(`/dashboard/${id}/reserve`)}
       className="relative rounded shadow-lg hover:scale-105 duration-300 w-[20rem]"
     >
       <div className="w-[20rem] rounded-t">

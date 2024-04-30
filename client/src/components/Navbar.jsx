@@ -3,6 +3,7 @@ import Cookie from "js-cookie";
 
 import { FaUserCircle, FaSignOutAlt, FaLock } from "../components/common/Icons";
 import { Link } from "react-router-dom";
+import { ax } from "../utils/axios.util";
 
 export default function Navbar() {
   const navbarRef = useRef(null);
@@ -21,6 +22,18 @@ export default function Navbar() {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const logout = async () => {
+    try {
+      await ax.put("/auth/logout");
+      Cookie.remove("access_token");
+      Cookie.remove("refresh_token");
+
+      window.location.href = "/";
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <nav className="flex justify-between items-center py-5">
@@ -60,11 +73,7 @@ export default function Navbar() {
             </button>
 
             <button
-              onClick={() => {
-                Cookie.remove("access_token");
-                Cookie.remove("refresh_token");
-                window.location.href = "/";
-              }}
+              onClick={logout}
               className="flex items-center gap-3 text-red-600 hover:bg-gray-200 duration-300 px-5 py-3 w-full"
             >
               <FaSignOutAlt />
