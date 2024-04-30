@@ -1,7 +1,10 @@
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { toast } from "react-toastify";
+
+import { ax } from "../../utils/axios.util";
 
 import sidePhoto from "../../assets/restaurant1.jpg";
 import Button from "../../components/common/forms/Button";
@@ -9,9 +12,11 @@ import TextField from "../../components/common/forms/TextField";
 import { signInValidation } from "../../utils/validators/auth.validator";
 import ErrMessage from "../../components/common/forms/ErrMessage";
 import { setOffLoading, setOnLoading } from "../../redux/loadingSlice";
+import { setProfile } from "../../redux/profileSlice";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const initialValues = {
     username: "",
@@ -26,11 +31,19 @@ export default function LoginPage() {
       dispatch(setOnLoading());
       try {
         const api = import.meta.env.VITE_API_LINK + "/auth/login";
-        const response = await axios.post(api, values);
-        if (response.status === 200) console.log("yes");
+        const response = await axios.post(api, values, {
+          withCredentials: true,
+        });
+        if (response.status === 200) {
+          // make it seperate function later
+          const response = await ax.get("/auth");
+          dispatch(setProfile(response.data.data));
+          if (response.data.data.role === "admin") navigate("/admin");
+          else navigate("/dashboard");
+        }
       } catch (err) {
-        console.log("here");
         console.log(err);
+        toast.error(err.response.data.message);
       }
       dispatch(setOffLoading());
     },

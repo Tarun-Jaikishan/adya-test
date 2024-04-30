@@ -3,7 +3,7 @@ import Cookie from "js-cookie";
 
 const ax = axios.create({
   baseURL: `${import.meta.env.VITE_API_LINK}`,
-  // withCredentials: true,
+  withCredentials: true,
   //   headers: {
   //     "Content-Type": "application/json",
   //   }

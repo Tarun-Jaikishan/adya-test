@@ -8,7 +8,7 @@ export const signInValidation = Yup.object({
 export const signUpValidation = Yup.object({
   username: Yup.string().required("username is required"),
   email: Yup.string().email().required("email is required"),
-  password: Yup.string().required("password is required"),
+  password: Yup.string().required("password is required").min(6).max(20),
   confirm_password: Yup.string()
     .required("confirm password is required")
     .oneOf(

@@ -1,13 +1,20 @@
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import sidePhoto from "../../assets/restaurant1.jpg";
 import Button from "../../components/common/forms/Button";
 import TextField from "../../components/common/forms/TextField";
 import { signUpValidation } from "../../utils/validators/auth.validator";
 import ErrMessage from "../../components/common/forms/ErrMessage";
+import { setOffLoading, setOnLoading } from "../../redux/loadingSlice";
+import axios from "axios";
 
 export default function RegisterPage() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const initialValues = {
     username: "",
     name: "",
@@ -21,8 +28,23 @@ export default function RegisterPage() {
     initialValues,
     validationSchema: signUpValidation,
     validateOnChange: false,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      values = { ...values, phone_number: String(values.phone_number) };
+      dispatch(setOnLoading());
+      try {
+        const api = import.meta.env.VITE_API_LINK + "/auth/register";
+        const response = await axios.post(api, values, {
+          withCredentials: true,
+        });
+        if (response.status === 200) {
+          toast.success(response.data.message);
+          navigate("/");
+        }
+      } catch (err) {
+        console.log(err);
+        toast.error(err.response.data.message);
+      }
+      dispatch(setOffLoading());
     },
   });
 
