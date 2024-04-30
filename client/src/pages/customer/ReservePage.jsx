@@ -1,7 +1,12 @@
 import { Rating } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import moment from "moment";
+
+// Date Picker
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { ax } from "../../utils/axios.util";
 import {
@@ -10,33 +15,43 @@ import {
   FaRegClock,
   MdOutlineWbSunny,
 } from "../../components/common/Icons";
-import { setOnLoading } from "../../redux/loadingSlice";
-import { setOffLoading } from "../../redux/reserveSlice";
+import { setOnLoading, setOffLoading } from "../../redux/loadingSlice";
 import { convert24to12 } from "../../utils/moment.util";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import Button from "../../components/common/forms/Button";
+import {
+  removeSlot,
+  setDate,
+  setSlot,
+  setTable,
+} from "../../redux/reserveSlice";
+import { toast } from "react-toastify";
 
 export default function ReservePage() {
+  const callOnce = useRef(false);
+
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const restaurantData = useSelector((state) => state.reserve);
-  let id = location.pathname.split("/");
-  id = id[id.length - 2];
 
   // Table List
   const [tables, setTables] = useState([]);
 
-  // Date
-  const [startDate, setStartDate] = useState(new Date());
+  // Slots List
+  const [slots, setSlots] = useState([]);
 
+  // Page Track
+  const [page, setPage] = useState(0);
+
+  // Fetch Tables of a Restaurant
   const getTables = async () => {
     dispatch(setOnLoading());
     try {
-      const response = await ax.get("/customer/tables", { params });
+      let id = location.pathname.split("/");
+      id = id[id.length - 2];
+      const response = await ax.get("/customer/tables", { params: { id } });
       if (response.status === 200) setTables(response.data.data);
     } catch (err) {
       console.log(err);
@@ -44,9 +59,60 @@ export default function ReservePage() {
     dispatch(setOffLoading());
   };
 
+  // Fetch Slots of a Restaurant with TableId
+  const getSlots = async () => {
+    dispatch(setOnLoading());
+    try {
+      const response = await ax.post("/customer/slots", {
+        id: restaurantData?.restaurantId,
+        dateOfBooking: restaurantData?.dateOfBooking
+          ? restaurantData?.dateOfBooking
+          : moment(new Date()).format("YYYY-MM-DD"),
+        tableId: restaurantData?.tableId,
+      });
+      if (response.status === 200) {
+        if (!restaurantData?.dateOfBooking)
+          dispatch(setDate(moment(new Date()).format("YYYY-MM-DD")));
+        setSlots(response.data.data);
+        setPage(1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(setOffLoading());
+  };
+
+  // Place Reservation
+  const reserveSlot = async () => {
+    dispatch(setOnLoading());
+    try {
+      const response = await ax.post("/customer/booking", {
+        restaurantId: restaurantData?.restaurantId,
+        slots: restaurantData?.slots,
+        tableId: restaurantData?.tableId,
+        dateOfBooking: restaurantData?.dateOfBooking,
+      });
+      if (response.status === 200) {
+        toast.success(response.data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(setOffLoading());
+  };
+
   useEffect(() => {
-    // getTables();
+    if (!callOnce.current) {
+      callOnce.current = true;
+      getTables();
+    }
   }, []);
+
+  // To Track Date Of Booking Change
+  useEffect(() => {
+    if (page === 1) getSlots();
+  }, [restaurantData?.dateOfBooking]);
+
   return (
     <div>
       <div className="flex items-center justify-between bg-gray-700 text-white rounded w-full p-5">
@@ -87,38 +153,102 @@ export default function ReservePage() {
       <hr />
       <br />
       <div className="flex">
-        {/* <div className="flex flex-col border-r h-full p-5">
-          <label className="font-dinney">Select Your Date</label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            dateFormat="dd/MM/yyyy"
-            className="border border-black text-black text-center py-1.5 rounded"
-          />
-        </div> */}
-
-        <div className="p-5">
-          <h3 className="text-3xl font-dinney">Tables</h3>
-          <div className="p-5 flex flex-wrap gap-5">
-            <br />
-            {tables.map((item, i) => {
-              return (
-                <button className="" onClick={() => {}} key={i} type="button">
-                  {item}
-                </button>
-              );
-            })}
-            <button className="" onClick={() => {}} type="button">
-              {/* {item} */}ss
-            </button>
+        {/* For Slot */}
+        {page === 1 && (
+          <div className="flex flex-col border-r h-full p-5">
+            <label className="font-dinney">Select Your Date</label>
+            <DatePicker
+              selected={restaurantData?.dateOfBooking}
+              onChange={(date) => {
+                dispatch(setDate(moment(date).format("YYYY-MM-DD")));
+              }}
+              dateFormat="dd/MM/yyyy"
+              className="border border-black text-black text-center py-1.5 rounded"
+            />
           </div>
-        </div>
+        )}
+
+        {/* Tables */}
+        {page === 0 && (
+          <div className="p-5">
+            <h3 className="text-3xl font-dinney">Tables</h3>
+            <div className="py-5 flex flex-wrap gap-7">
+              {tables.map((item, i) => {
+                return (
+                  <button
+                    className={`${
+                      restaurantData?.tableId === item
+                        ? "bg-black !text-white"
+                        : ""
+                    } px-5 py-3 border-2 border-black  text-black rounded font-semibold hover:bg-black hover:text-white duration-300`}
+                    onClick={() => dispatch(setTable(item))}
+                    key={i}
+                    type="button"
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Slots */}
+        {page === 1 && (
+          <div className="p-5">
+            <h3 className="text-3xl font-dinney">Slots</h3>
+            <div className="py-5 flex flex-wrap gap-7">
+              {slots.map((item, i) => {
+                return (
+                  <button
+                    className={`${
+                      restaurantData?.slots[0] === item
+                        ? "bg-black !text-white"
+                        : ""
+                    } px-5 py-3 border-2 border-black  text-black rounded font-semibold hover:bg-black hover:text-white duration-300`}
+                    onClick={() => dispatch(setSlot(item))}
+                    key={i}
+                    type="button"
+                  >
+                    {convert24to12(item.split("-")[0])} -{" "}
+                    {convert24to12(item.split("-")[1])}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="flex justify-end gap-5  bg-gray-700 w-full p-5">
-        <Button name={"Confirm"} />
-        <Button onClick={() => navigate("/dashboard")} name={"Cancel"} />
-      </div>
+      {/* For Tables */}
+      {page === 0 && (
+        <div className="flex justify-end gap-5  bg-gray-700 w-full p-5">
+          <Button
+            onClick={getSlots}
+            disabled={!restaurantData?.tableId}
+            name={"Next"}
+          />
+          <Button onClick={() => navigate("/dashboard")} name={"Cancel"} />
+        </div>
+      )}
+
+      {/* For Slot */}
+      {page === 1 && (
+        <div className="flex justify-end gap-5  bg-gray-700 w-full p-5">
+          <Button
+            disabled={!restaurantData?.slots[0]}
+            onClick={() => {}}
+            name={"Confirm"}
+          />
+          <Button
+            onClick={() => {
+              dispatch(removeSlot());
+              setPage(0);
+            }}
+            name={"Back"}
+          />
+        </div>
+      )}
     </div>
   );
 }

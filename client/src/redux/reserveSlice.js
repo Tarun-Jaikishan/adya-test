@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment";
 
 const initialState = {
   restaurantId: "",
@@ -28,13 +29,35 @@ const reserveSlice = createSlice({
       state.slots = [];
     },
 
-    setDate: (state, action) => {},
-    setOffLoading: (state) => {
-      state.isLoading = false;
+    setDate: (state, action) => {
+      state.dateOfBooking = action.payload;
+    },
+
+    setTable: (state, action) => {
+      state.tableId = action.payload;
+    },
+
+    setSlot: (state, action) => {
+      state.slots = [action.payload];
+    },
+
+    removeSlot: (state) => {
+      state.slots = [];
+    },
+
+    resetData: (state) => {
+      state = initialState;
     },
   },
 });
 
-export const { setCardData, setOffLoading } = reserveSlice.actions;
+export const {
+  setCardData,
+  setDate,
+  setTable,
+  setSlot,
+  removeSlot,
+  resetData,
+} = reserveSlice.actions;
 
 export const reserveReducer = reserveSlice.reducer;

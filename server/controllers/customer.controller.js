@@ -49,7 +49,7 @@ const generateTables = async (req, res) => {
 
 // Issue Need to be solved which users concurrently books it will allow duplicates
 // Restriction Needs to be added
-// GET -> /api/customer/slots + BEARER TOKEN
+// POST -> /api/customer/slots + BEARER TOKEN
 const generateSlots = async (req, res) => {
   try {
     const data = req.body;
@@ -91,9 +91,10 @@ const generateSlots = async (req, res) => {
       { slots: 1 }
     );
 
-    bookings.slots.forEach((item) => {
-      generalSlots = generalSlots.filter((innerItem) => item !== innerItem);
-    });
+    if (bookings)
+      bookings.slots.forEach((item) => {
+        generalSlots = generalSlots.filter((innerItem) => item !== innerItem);
+      });
 
     // if (bookings.length === 0)
     return res.status(200).json({ error: false, data: generalSlots });

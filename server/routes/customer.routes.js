@@ -22,7 +22,7 @@ router.route("/booking").post(bookSlot).get(bookingHistory);
 
 router.route("/tables").get(generateTables);
 
-router.route("/slots").get(generateSlots);
+router.route("/slots").post(generateSlots);
 
 router.route("/rating").put(rateRestaurant);
 
