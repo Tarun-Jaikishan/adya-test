@@ -1,0 +1,67 @@
+import { useEffect, useRef, useState } from "react";
+import Cookie from "js-cookie";
+
+import { FaUserCircle, FaSignOutAlt } from "../components/common/Icons";
+
+export default function Navbar() {
+  const navbarRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <nav className="flex justify-between items-center py-5">
+      <h1 className="font-dinney text-3xl">Dinney</h1>
+      <div ref={navbarRef} className="relative">
+        <button onClick={() => setMenuOpen(!menuOpen)}>
+          <FaUserCircle
+            size={38}
+            className={`${
+              menuOpen ? "text-slate-500" : "text-slate-400"
+            } hover:text-slate-500 duration-300 shadow-md rounded-full `}
+          />
+        </button>
+
+        <div
+          className={` absolute ${
+            menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+          } duration-300  bg-white border right-0 z-10 w-[13rem] shadow-lg font-semibold rounded`}
+        >
+          {/* <button
+            onClick={() => {
+              setOpenFP(true);
+            }}
+            className="flex items-center gap-3 text-blue-600 hover:bg-gray-200 duration-300 px-5 py-3 w-full"
+          >
+            <FaLock />
+            Change Password
+          </button> */}
+
+          <button
+            onClick={() => {
+              Cookie.remove("access_token");
+              Cookie.remove("refresh_token");
+              window.location.href = "/";
+            }}
+            className="flex items-center gap-3 text-red-600 hover:bg-gray-200 duration-300 px-5 py-3 w-full"
+          >
+            <FaSignOutAlt />
+            Log Out
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+}

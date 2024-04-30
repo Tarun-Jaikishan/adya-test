@@ -15,6 +15,9 @@ const { hashPassword } = require("../utils/hash-password");
 const register = async (req, res) => {
   try {
     const data = req.body;
+    if (data.confirm_password) delete data.confirm_password;
+
+    console.log(data);
 
     const { error, value } = registerSchema.validate(data);
 
@@ -105,10 +108,10 @@ const login = async (req, res) => {
       }
     );
 
-    res
-      .status(200)
-      .cookie("access_token", accesstoken, { maxAge: 1000 * 60 * 60 * 24 }); // 24 hours
-    res.status(200).cookie("refresh_token", refreshtoken, {
+    res.cookie("access_token", accesstoken, {
+      maxAge: 1000 * 60 * 60 * 24,
+    }); // 24 hours
+    res.cookie("refresh_token", refreshtoken, {
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
     });
     res.status(200).json({ error: false, message: "Login Successful" });

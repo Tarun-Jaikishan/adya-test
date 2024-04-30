@@ -52,14 +52,14 @@ export default function LoginPage() {
   return (
     <div className="relative flex flex-1 min-h-screen">
       <div className="w-1/2 flex flex-col justify-center items-center">
-        <img src={sidePhoto} className="h-full" />
+        <img src={sidePhoto} className="h-full" alt="Image" />
       </div>
 
       <div className="absolute left-0 top-0 w-1/2 h-full bg-black opacity-65"></div>
 
       <div className="flex flex-1 justify-center items-center">
         <div>
-          <h1 className="text-center font-diney text-5xl">
+          <h1 className="text-center font-dinney text-5xl">
             Welcome To Dinney,
           </h1>
 
