@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Rating } from "@mui/material";
 
 import image from "../../assets/restaurant2.jpg";
@@ -9,7 +11,7 @@ import {
   MdOutlineWbSunny,
 } from "../../components/common/Icons";
 import { convert24to12 } from "../../utils/moment.util";
-import { useNavigate } from "react-router-dom";
+import { setCardData } from "../../redux/reserveSlice";
 
 export default function Card({
   name,
@@ -20,10 +22,14 @@ export default function Card({
   id,
 }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <button
-      onClick={() => navigate(`/dashboard/${id}/reserve`)}
+      onClick={() => {
+        dispatch(setCardData({ id, name, cuisine, location, timings, rating }));
+        navigate(`/dashboard/${id}/reserve`);
+      }}
       className="relative rounded shadow-lg hover:scale-105 duration-300 w-[20rem]"
     >
       <div className="w-[20rem] rounded-t">

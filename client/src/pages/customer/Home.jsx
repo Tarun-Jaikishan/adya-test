@@ -17,7 +17,7 @@ export default function Home() {
       <Routes>
         <Route index path="/" element={<MainContent />} />
         <Route index path="/history" element={<HistoryPage />} />
-        <Route index path="/:id/reserve" element={<ReservePage />} />
+        <Route index path="/:id/reserve/*" element={<ReservePage />} />
         <Route index path="/restaurants" element={<FindRestaurantPage />} />
 
         {/* Not Found */}
