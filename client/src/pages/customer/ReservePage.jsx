@@ -26,6 +26,7 @@ import {
   setTable,
 } from "../../redux/reserveSlice";
 import { toast } from "react-toastify";
+import DialogBox from "../../components/common/DialogBox";
 
 export default function ReservePage() {
   const callOnce = useRef(false);
@@ -44,6 +45,12 @@ export default function ReservePage() {
 
   // Page Track
   const [page, setPage] = useState(0);
+
+  // State For Dialog Box
+  const [openDialog, setOpenDialog] = useState(false);
+
+  // State For Ratung
+  const [value, setValue] = useState(0);
 
   // Fetch Tables of a Restaurant
   const getTables = async () => {
@@ -94,6 +101,25 @@ export default function ReservePage() {
       });
       if (response.status === 200) {
         toast.success(response.data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    dispatch(setOffLoading());
+  };
+
+  // Rating API
+  const rating = async (value) => {
+    dispatch(setOnLoading());
+    try {
+      const response = await ax.put("/customer/rating", {
+        id: restaurantData?.restaurantId,
+        rating: value,
+      });
+      if (response.status === 200) {
+        setOpenDialog(false);
+        toast.success(response.data.message);
+        navigate("/dashboard");
       }
     } catch (err) {
       console.log(err);
@@ -215,6 +241,8 @@ export default function ReservePage() {
                   </button>
                 );
               })}
+
+              {slots.length === 0 && <div>No Slots Available :(</div>}
             </div>
           </div>
         )}
@@ -249,6 +277,25 @@ export default function ReservePage() {
           />
         </div>
       )}
+
+      <DialogBox
+        open={!openDialog}
+        doNotClose={true}
+        setOpen={setOpenDialog}
+        title={"Please Provide Rating !"}
+        ownCancelFunction={() => {
+          setOpenDialog(false);
+        }}
+      >
+        <div className="flex justify-center">
+          <Rating
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
+        </div>
+      </DialogBox>
     </div>
   );
 }
