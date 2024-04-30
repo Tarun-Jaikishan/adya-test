@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate, Outlet } from "react-router-dom";
-import { Flip, ToastContainer } from "react-toastify";
+import { Flip, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Cookie from "js-cookie";
 
 import LoginPage from "./pages/auth/LoginPage";

@@ -1,3 +1,9 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Dancing+Script:wght@400..700&display=swap");
+
+/* Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +12,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.font-diney {
+  /* font-family: "Cedarville Cursive", cursive; */
+  font-family: "Dancing Script", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
