@@ -17,7 +17,7 @@ const app = express();
 
 // Middlewares
 app.use(express.json());
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 app.use(cookieParser());
 app.use(
   expSession({
@@ -32,8 +32,7 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-// app.use(morgan("short", { stream: accessLogStream }));
-app.use(morgan("short"));
+app.use(morgan("short", { stream: accessLogStream }));
 
 // Routes
 const authRouter = require("./routes/auth.routes");
