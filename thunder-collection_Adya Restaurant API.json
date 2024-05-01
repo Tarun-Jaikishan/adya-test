@@ -1,0 +1,350 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Adya Restaurant APIs",
+    "collectionId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+    "dateExported": "2024-05-01T07:06:31.935Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "dd37279f-2f62-4125-8aa4-24ab5b2f303b",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Auth - Register",
+            "url": "{{host}}/auth/register",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-04-29T14:07:53.915Z",
+            "modified": "2024-04-29T15:08:00.759Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"tarunjaikishan\",\n  \"name\": \"Tarun Jaikishan\",\n  \"phone_number\": \"1234567890\",\n  \"email\": \"tarunjaikishanpk@gmail.com\",\n  \"password\": \"123456\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "4f2fc76a-1ef5-4439-b0fc-7c991d945b75",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Auth - Login",
+            "url": "{{host}}/auth/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-04-29T15:08:41.527Z",
+            "modified": "2024-05-01T06:43:11.470Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "f4ab0783-9dac-4de7-b95d-b980568495d9",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Auth - Get User Info",
+            "url": "{{host}}/auth",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-04-29T15:59:14.996Z",
+            "modified": "2024-04-29T17:02:39.018Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "76d67b03-1507-4d42-9f04-1c00ee16bedc",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Auth - Logout",
+            "url": "{{host}}/auth/logout",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2024-04-29T15:59:58.642Z",
+            "modified": "2024-04-29T16:00:17.563Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "775423d2-04b4-41ef-96a1-2c08bbeb844a",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Auth - Change Password",
+            "url": "{{host}}/auth/change-password",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-04-29T16:01:26.642Z",
+            "modified": "2024-04-29T17:02:48.398Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"confirm_password\": \"1234567\"\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "417d0cd0-88af-4088-8949-a51545b62df3",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Auth - Generate Token",
+            "url": "{{host}}/auth/generate-token",
+            "method": "POST",
+            "sortNum": 45000,
+            "created": "2024-04-29T17:35:36.508Z",
+            "modified": "2024-04-29T17:43:08.913Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{refresh_token}}"
+            }
+        },
+        {
+            "_id": "646462b5-b253-42d5-b544-9f7e0117c1e1",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Common - Get Location Options",
+            "url": "{{host}}/common/location",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-04-29T17:14:32.346Z",
+            "modified": "2024-04-29T19:02:57.433Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "d49a50e4-2515-4ef9-b088-a495d3207e71",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Common - Filter Restaurant",
+            "url": "{{host}}/common/restaurant",
+            "method": "GET",
+            "sortNum": 55000,
+            "created": "2024-04-29T19:02:21.682Z",
+            "modified": "2024-04-30T17:49:33.867Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "state",
+                    "value": "TamilNadu",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "city",
+                    "value": "Chennai",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "name",
+                    "value": "Restaurant 2",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "cuisine_type",
+                    "value": "Chinese",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "2aa7b2a3-7fe1-4b78-b07f-027fad58a0b4",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Admin - Create Restaurant",
+            "url": "{{host}}/admin",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-04-29T17:44:47.813Z",
+            "modified": "2024-05-01T06:45:58.664Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Xing Hotel\",\n  \"cuisine_type\": \"Chinese\",\n  \"location\": {\n    \"city\": \"Salem\",\n    \"state\": \"Karnataka\"\n  }\n}\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{admin_token}}"
+            }
+        },
+        {
+            "_id": "de413283-0376-4920-86d1-4dd5784026c0",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Admin - List All Restaurant ",
+            "url": "{{host}}/admin",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-04-29T18:25:26.391Z",
+            "modified": "2024-04-29T18:48:00.178Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{admin_token}}"
+            }
+        },
+        {
+            "_id": "14a3b0bc-bf56-4459-9c9d-0a9f5c543287",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Admin - Delete Restaurant ",
+            "url": "{{host}}/admin?id=662fe96aef2c9c5a098c40a5",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2024-04-29T18:29:54.006Z",
+            "modified": "2024-04-29T18:49:10.301Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "662fe96aef2c9c5a098c40a5",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{admin_token}}"
+            }
+        },
+        {
+            "_id": "980ec907-8950-43c5-b36a-904ada0c7823",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Customer - List Restaurant Home",
+            "url": "{{host}}/customer",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-04-29T18:46:52.150Z",
+            "modified": "2024-04-29T18:57:22.438Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "38006920-64f4-4e13-9937-1aa1d7116164",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Customer - Generate Seater Tables",
+            "url": "{{host}}/customer/tables?id=662febe96acc8a9cec21a934",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2024-04-29T19:12:24.473Z",
+            "modified": "2024-04-30T19:53:51.041Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "id",
+                    "value": "662febe96acc8a9cec21a934",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "42cf8bb5-6b7c-4d3a-b8ae-93cf11b72666",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Customer - Generate Slots",
+            "url": "{{host}}/customer/slots",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-04-29T19:27:36.145Z",
+            "modified": "2024-04-30T20:50:01.832Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"662febe96acc8a9cec21a934\",\n  \"dateOfBooking\": \"2024-04-30\",\n  \"tableId\": \"2-Seater Table (2)\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "9d7817dd-5132-4d92-95ac-19f9e5a9d4d1",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Customer - Restaurant Rating",
+            "url": "{{host}}/customer/rating",
+            "method": "PUT",
+            "sortNum": 120000,
+            "created": "2024-04-29T19:47:53.181Z",
+            "modified": "2024-04-29T19:57:33.038Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"662febe96acc8a9cec21a934\",\n  \"rating\": 5\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "f3872172-fab3-4e6a-af34-b58a4b27e748",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Customer - Booking Slot",
+            "url": "{{host}}/customer/booking",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2024-04-29T20:19:09.298Z",
+            "modified": "2024-04-30T21:14:52.906Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"restaurantId\": \"662febe96acc8a9cec21a934\",\n  \"slots\": [\n    \"10-11\"\n  ],\n  \"tableId\": \"2-Seater Table (2)\",\n  \"dateOfBooking\": \"2024-04-30\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        },
+        {
+            "_id": "3261dd42-f4b4-4e2c-9df2-de7aeeabef00",
+            "colId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
+            "containerId": "",
+            "name": "Customer - Booking History",
+            "url": "{{host}}/customer/booking",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-04-29T20:25:59.871Z",
+            "modified": "2024-04-29T20:26:11.679Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{access_token}}"
+            }
+        }
+    ],
+    "ref": "zI9ZaZfrNiC7viwXdVW2eKeenksJIeVWgpHQhZiXr7_3MI3fBCpKLfv1YHLAkSlGHzMj_2iQsjKPwEFS4Otosg"
+}
