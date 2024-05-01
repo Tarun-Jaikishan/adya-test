@@ -121,7 +121,7 @@ export default function RegisterPage() {
               inputType="password"
             />
             <div>
-              <Button type="submit" customStyle="mt-1 w-full" name="Sign In" />
+              <Button type="submit" customStyle="mt-1 w-full" name="Register" />
               <p className="mt-1 text-white text-center">
                 Already a member?{" "}
                 <Link

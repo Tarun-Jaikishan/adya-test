@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "environmentName": "Adya Restaurant API",
     "environmentId": "4a40834d-9e28-4a30-837f-a6389be60628",
-    "dateExported": "2024-05-01T07:06:14.800Z",
+    "dateExported": "2024-05-01T10:20:36.991Z",
     "version": "1.2",
     "variables": [
         {
@@ -11,16 +11,16 @@
         },
         {
             "name": "access_token",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhcnVuamFpa2lzaGFuIiwicm9sZSI6ImN1c3RvbWVyIiwiYWNjZXNzIjp0cnVlLCJpYXQiOjE3MTQ1NDU2NTIsImV4cCI6MTcxNDYzMjA1Mn0.0J9vERgn0q9ePgLEzes63c-pngqV6mQYIYjzfn6sCVg"
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhcnVuamFpa2lzaGFuIiwicm9sZSI6ImN1c3RvbWVyIiwiYWNjZXNzIjp0cnVlLCJpYXQiOjE3MTQ1NTg3MTIsImV4cCI6MTcxNDY0NTExMn0.W93-jxHeEnSvFd-RsondKrEava3q2yjnPbnaeuFFhFA"
         },
         {
             "name": "refresh_token",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhcnVuamFpa2lzaGFuIiwicm9sZSI6ImN1c3RvbWVyIiwiYWNjZXNzIjpmYWxzZSwiaWF0IjoxNzE0NTQ1NjUyLCJleHAiOjE3MTcxMzc2NTJ9.Cmh3d2X3CUp17FKyoLwAUlEOMY0KMOquCpzDTwkZ2N4"
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhcnVuamFpa2lzaGFuIiwicm9sZSI6ImN1c3RvbWVyIiwiYWNjZXNzIjpmYWxzZSwiaWF0IjoxNzE0NTU4NzEyLCJleHAiOjE3MTcxNTA3MTJ9.bdYE_5Dnuqz3SzQgwbP5lK4OuZYIuNL3K1ZEYDt9wyk"
         },
         {
             "name": "admin_token",
-            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiYWNjZXNzIjp0cnVlLCJpYXQiOjE3MTQ1NDU3OTEsImV4cCI6MTcxNDYzMjE5MX0.EHPs6bC5vWS2mXzpnFpdGGK5w62VdASp1OmtkzL79rE"
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiYWNjZXNzIjp0cnVlLCJpYXQiOjE3MTQ1NTg2OTAsImV4cCI6MTcxNDY0NTA5MH0.Aebrv9qVD_iafAE9VhcNlFUEgsDiYwGQE7Y1J5Tm2b0"
         }
     ],
-    "ref": "pnhPIKOU7C865poPCysEt8x89OuF8BZk7lch6EJsARdTshThip0xOgvwYP8Aq0g6"
+    "ref": "pnhPIKOU7C865poPCysEt1oUtOmHbyxpapX15mQ0fTY-4G0BCOEaeyuXArKIAmzz"
 }

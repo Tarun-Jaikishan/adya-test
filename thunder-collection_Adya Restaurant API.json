@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Adya Restaurant APIs",
     "collectionId": "94828a78-b71d-48b2-8e05-39db174d7bdc",
-    "dateExported": "2024-05-01T07:06:31.935Z",
+    "dateExported": "2024-05-01T10:20:10.438Z",
     "version": "1.2",
     "folders": [],
     "requests": [
@@ -32,11 +32,11 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-04-29T15:08:41.527Z",
-            "modified": "2024-05-01T06:43:11.470Z",
+            "modified": "2024-05-01T10:18:31.065Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}\n",
+                "raw": "{\n  \"username\": \"tarunjaikishan\",\n  \"password\": \"123456\"\n}\n",
                 "form": []
             }
         },
@@ -176,11 +176,11 @@
             "method": "POST",
             "sortNum": 60000,
             "created": "2024-04-29T17:44:47.813Z",
-            "modified": "2024-05-01T06:45:58.664Z",
+            "modified": "2024-05-01T08:08:09.862Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\": \"Xing Hotel\",\n  \"cuisine_type\": \"Chinese\",\n  \"location\": {\n    \"city\": \"Salem\",\n    \"state\": \"Karnataka\"\n  }\n}\n",
+                "raw": "{\n  \"name\": \"Xing Hotel\",\n  \"cuisine_type\": \"Chinese\",\n  \"location\": {\n    \"city\": \"Salem\",\n    \"state\": \"Karnataka\"\n  },\n  \"timing\": {\n    \"from\": \"11\",\n    \"to\": \"23\"\n  }\n}",
                 "form": []
             },
             "auth": {
@@ -346,5 +346,5 @@
             }
         }
     ],
-    "ref": "zI9ZaZfrNiC7viwXdVW2eKeenksJIeVWgpHQhZiXr7_3MI3fBCpKLfv1YHLAkSlGHzMj_2iQsjKPwEFS4Otosg"
+    "ref": "zI9ZaZfrNiC7viwXdVW2eKeenksJIeVWgpHQhZiXr79GDm-NrQJVV7RQTTmUZco9EHDyqOZK0uMK8mwU1bvPcQ"
 }
