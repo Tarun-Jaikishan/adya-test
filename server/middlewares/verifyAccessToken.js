@@ -17,7 +17,9 @@ const verifyAccessToken =
       console.log(err);
       if (err.expiredAt)
         return res.status(401).json({ error: true, message: "Token Expired" });
-      res.status(500).json({ error: true, message: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ error: true, message: "Internal Server Error", err });
     }
   };
 
