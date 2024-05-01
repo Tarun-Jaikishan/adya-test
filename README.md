@@ -20,3 +20,5 @@ npm run dev or npm run start
 4. It has two roles, one is customer and admin.
 5. Admin manages creation and deletion of retaurants.
 6. Resveration starts with table selection then choosing slots from a date considering the working hours as slots (1 hour each).
+
+# Sample Screenshots Also Attached
