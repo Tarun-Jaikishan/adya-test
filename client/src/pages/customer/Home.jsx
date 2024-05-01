@@ -64,6 +64,7 @@ function MainContent() {
             location={item.location}
             rating={Math.floor(item.rating.value / item.rating.count)}
             key={i}
+            index={i}
           />
         ))}
       </div>

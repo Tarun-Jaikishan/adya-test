@@ -23,9 +23,12 @@ export default function Card({
   timings,
   rating = 1,
   id,
+  index = 0,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const images = [image1, image2, image3];
 
   return (
     <button
@@ -36,7 +39,7 @@ export default function Card({
       className="relative rounded shadow-lg hover:scale-105 duration-300 w-[20rem]"
     >
       <div className="w-[20rem] rounded-t">
-        <img src={image1} alt="Image" className="rounded-t" />
+        <img src={images[index % 3]} alt="Image" className="rounded-t" />
       </div>
       {rating > 0 ? (
         <div className="!absolute flex top-2 right-2 bg-white items-center p-1 rounded shadow-lg">
