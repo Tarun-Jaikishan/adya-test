@@ -17,7 +17,6 @@ const reserveSlice = createSlice({
   initialState,
   reducers: {
     setCardData: (state, action) => {
-      console.log("here");
       state.restaurantId = action.payload.id;
       state.name = action.payload.name;
       state.cuisine = action.payload.cuisine;

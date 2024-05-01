@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import Cookie from "js-cookie";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { FaUserCircle, FaSignOutAlt, FaLock } from "../components/common/Icons";
-import { Link } from "react-router-dom";
 import { ax } from "../utils/axios.util";
 
 export default function Navbar() {
+  const userInfo = useSelector((state) => state.profile);
+
   const navbarRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -46,6 +49,9 @@ export default function Navbar() {
           </Link>
           <Link to={"/dashboard/restaurants"}>Find Restaurants</Link>
           <Link to={"/dashboard/history"}>My Bookings</Link>
+          <p className="font-dinney">
+            Welcome, <span className="font-semibold">{userInfo.name}</span>
+          </p>
         </div>
         <div ref={navbarRef} className="relative">
           <button onClick={() => setMenuOpen(!menuOpen)}>
@@ -62,7 +68,7 @@ export default function Navbar() {
               menuOpen ? "opacity-100 visible" : "opacity-0 invisible"
             } duration-300  bg-white border right-0 z-10 w-[13rem] shadow-lg font-semibold rounded`}
           >
-            <button
+            {/* <button
               // onClick={() => {
               //   setOpenFP(true);
               // }}
@@ -70,7 +76,7 @@ export default function Navbar() {
             >
               <FaLock />
               Change Password
-            </button>
+            </button> */}
 
             <button
               onClick={logout}

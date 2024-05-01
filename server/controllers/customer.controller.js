@@ -138,10 +138,6 @@ const bookingHistory = async (req, res) => {
   try {
     const { username } = req.user;
 
-    // const response = await reservationModel
-    //   .find({ username }, { _id: 0, updatedAt: 0, __v: 0 })
-    //   .sort({ createdAt: -1 });
-
     const response = await reservationModel.aggregate([
       {
         $lookup: {
@@ -159,6 +155,11 @@ const bookingHistory = async (req, res) => {
           "info.updatedAt": 0,
           "info.__v": 0,
           "info.table": 0,
+        },
+      },
+      {
+        $match: {
+          username,
         },
       },
       {
