@@ -2,7 +2,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Rating } from "@mui/material";
 
-import image from "../../assets/restaurant2.jpg";
+// Static Images For Temporary
+import image1 from "../../assets/restaurant2.jpg";
+import image2 from "../../assets/restaurant3.jpg";
+import image3 from "../../assets/restaurant4.jpg";
 
 import {
   TbToolsKitchen2,
@@ -33,7 +36,7 @@ export default function Card({
       className="relative rounded shadow-lg hover:scale-105 duration-300 w-[20rem]"
     >
       <div className="w-[20rem] rounded-t">
-        <img src={image} alt="Image" className="rounded-t" />
+        <img src={image1} alt="Image" className="rounded-t" />
       </div>
       {rating > 0 ? (
         <div className="!absolute flex top-2 right-2 bg-white items-center p-1 rounded shadow-lg">
