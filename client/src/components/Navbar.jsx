@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Cookie from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   FaUserCircle,
@@ -12,9 +12,12 @@ import {
   FaHistory,
 } from "../components/common/Icons";
 import { ax } from "../utils/axios.util";
+import { removeProfile } from "../redux/profileSlice";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const userInfo = useSelector((state) => state.profile);
 
   const navbarRef = useRef(null);
@@ -37,9 +40,9 @@ export default function Navbar() {
   const logout = async () => {
     try {
       await ax.put("/auth/logout");
+      dispatch(removeProfile());
       Cookie.remove("access_token");
       Cookie.remove("refresh_token");
-
       window.location.href = "/";
     } catch (err) {
       console.log(err);

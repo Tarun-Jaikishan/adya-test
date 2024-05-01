@@ -25,16 +25,13 @@ const persistReducerWrapper = (reducer, key) => {
   return persistReducer(persistConfig, reducer);
 };
 
-// Define reducers
-const rootReducer = combineReducers({
-  loading: persistReducerWrapper(loadingReducer, "loading"),
-  profile: persistReducerWrapper(profileReducer, "profile"),
-  reserve: persistReducerWrapper(reserveReducer, "reserve"),
-});
-
 // Create store
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    loading: loadingReducer,
+    profile: persistReducerWrapper(profileReducer, "profile"),
+    reserve: persistReducerWrapper(reserveReducer, "reserve"),
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

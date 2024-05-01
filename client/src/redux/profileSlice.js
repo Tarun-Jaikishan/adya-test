@@ -23,23 +23,10 @@ const profileSlice = createSlice({
     },
 
     removeProfile: (state) => {
-      state = initialState;
+      state = { ...state, ...initialState };
     },
   },
 });
-
-export const getUserInfo = () => async (dispatch) => {
-  console.log("called");
-  dispatch(setOnLoading());
-  try {
-    const response = await ax.get("/auth");
-    dispatch(setProfile(response.data.data));
-    console.log(response);
-  } catch (err) {
-    console.log(err);
-  }
-  dispatch(setOffLoading());
-};
 
 export const { setProfile, removeProfile } = profileSlice.actions;
 

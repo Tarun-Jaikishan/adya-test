@@ -45,7 +45,7 @@ const reserveSlice = createSlice({
     },
 
     resetData: (state) => {
-      state = initialState;
+      state = { ...state, ...initialState };
     },
   },
 });
