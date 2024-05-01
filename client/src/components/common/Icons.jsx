@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 import { IoIosArrowBack, IoIosMail } from "react-icons/io";
 import { IoLocation } from "react-icons/io5";
-import { MdDateRange, MdOutlineWbSunny } from "react-icons/md";
+import { MdDateRange, MdDelete, MdOutlineWbSunny } from "react-icons/md";
 import { TbToolsKitchen2 } from "react-icons/tb";
 
 export {
@@ -28,4 +28,5 @@ export {
   FaHistory,
   IoIosMail,
   FaPhoneAlt,
+  MdDelete,
 };

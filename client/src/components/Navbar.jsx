@@ -54,28 +54,35 @@ export default function Navbar() {
       <h1 className="font-dinney text-3xl">Dinney</h1>
 
       <div className="flex items-center gap-10">
-        <div className="flex items-center gap-5">
-          <Link
-            className="font-semibold flex items-center gap-2"
-            to={"/dashboard"}
-          >
+        {userInfo.role === "admin" && (
+          <Link className="font-semibold flex items-center gap-2" to={"/admin"}>
             <FaHome /> Home
           </Link>
-          <Link
-            className="flex items-center gap-2"
-            to={"/dashboard/restaurants"}
-          >
-            <FaSearch />
-            Find Restaurants
-          </Link>
-          <Link className="flex items-center gap-2" to={"/dashboard/history"}>
-            <FaHistory />
-            My Bookings
-          </Link>
-          <p className="font-dinney">
-            Welcome, <span className="font-semibold">{userInfo.name}</span>
-          </p>
-        </div>
+        )}
+        {userInfo.role === "customer" && (
+          <div className="flex items-center gap-5">
+            <Link
+              className="font-semibold flex items-center gap-2"
+              to={"/dashboard"}
+            >
+              <FaHome /> Home
+            </Link>
+            <Link
+              className="flex items-center gap-2"
+              to={"/dashboard/restaurants"}
+            >
+              <FaSearch />
+              Find Restaurants
+            </Link>
+            <Link className="flex items-center gap-2" to={"/dashboard/history"}>
+              <FaHistory />
+              My Bookings
+            </Link>
+            <p className="font-dinney">
+              Welcome, <span className="font-semibold">{userInfo.name}</span>
+            </p>
+          </div>
+        )}
         <div ref={navbarRef} className="relative">
           <button onClick={() => setMenuOpen(!menuOpen)}>
             <FaUserCircle

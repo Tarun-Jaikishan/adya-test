@@ -7,6 +7,10 @@ const restaurantSchema = Joi.object({
     city: Joi.string().required(),
     state: Joi.string().required(),
   }).required(),
+  timing: Joi.object({
+    from: Joi.string().required(),
+    to: Joi.string().required(),
+  }).required(),
 });
 
 module.exports = { restaurantSchema };

@@ -66,7 +66,7 @@ export default function RegisterPage() {
             onSubmit={handleSubmit}
             className="mt-3 px-10 py-7 bg-black rounded shadow-lg space-y-5"
           >
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex justify-center gap-3">
               <InputGroup
                 title={"Username"}
                 handleChange={handleChange}

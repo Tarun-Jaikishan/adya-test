@@ -8,8 +8,6 @@ import { IoIosMail, FaPhoneAlt } from "../components/common/Icons";
 export default function MyProfilePage() {
   const userInfo = useSelector((state) => state.profile);
 
-  console.log(userInfo);
-
   return (
     <div className="px-10 min-h-screen">
       <Navbar />

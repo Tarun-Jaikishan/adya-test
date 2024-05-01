@@ -27,7 +27,10 @@ const addRestaurant = async (req, res) => {
 // GET -> /api/admin + BEARER TOKEN
 const listRestaurant = async (req, res) => {
   try {
-    const response = await restaurantModel.find({}, { __v: 0, updatedAt: 0 });
+    const response = await restaurantModel.find(
+      {},
+      { __v: 0, updatedAt: 0, table: 0 }
+    );
 
     res.status(200).json({ error: false, data: response });
   } catch (err) {
