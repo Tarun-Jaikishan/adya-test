@@ -93,18 +93,18 @@ function HistoryCard({
       type="button"
     >
       <div>
-        <h1 className="text-3xl font-semibold text-start">{name}</h1>
+        <h1 className="text-2xl font-semibold text-start">{name}</h1>
         <div className="mt-2 flex gap-5 items-center">
-          <h3 className="flex items-center gap-2 text-xl">
-            <TbToolsKitchen2 className="bg-white text-black text-2xl w-10 h-10 p-1.5 rounded-full" />
+          <h3 className="flex items-center gap-2 text-lg">
+            <TbToolsKitchen2 className="bg-white text-black text-xl w-8 h-8 p-1.5 rounded-full" />
             {cuisine}
           </h3>
-          <h3 className="flex items-center gap-2 text-xl">
-            <IoLocation className="bg-white text-black text-2xl w-10 h-10 p-1.5 rounded-full" />
+          <h3 className="flex items-center gap-2 text-lg">
+            <IoLocation className="bg-white text-black text-xl w-8 h-8 p-1.5 rounded-full" />
             {location?.city}, {location?.state}
           </h3>
         </div>
-        <h3 className="mt-3 text-xl font-semibold text-black text-start p-3 bg-white w-fit rounded">
+        <h3 className="mt-3 textlgl font-semibold text-black text-start p-3 bg-white w-fit rounded">
           {tableId}
         </h3>
       </div>

@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import Cookie from "js-cookie";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { FaUserCircle, FaSignOutAlt, FaLock } from "../components/common/Icons";
+import {
+  FaUserCircle,
+  FaSignOutAlt,
+  FaLock,
+  FaHome,
+  FaSearch,
+  FaHistory,
+} from "../components/common/Icons";
 import { ax } from "../utils/axios.util";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const userInfo = useSelector((state) => state.profile);
 
   const navbarRef = useRef(null);
@@ -44,11 +52,23 @@ export default function Navbar() {
 
       <div className="flex items-center gap-10">
         <div className="flex items-center gap-5">
-          <Link className="font-semibold" to={"/dashboard"}>
-            Home
+          <Link
+            className="font-semibold flex items-center gap-2"
+            to={"/dashboard"}
+          >
+            <FaHome /> Home
           </Link>
-          <Link to={"/dashboard/restaurants"}>Find Restaurants</Link>
-          <Link to={"/dashboard/history"}>My Bookings</Link>
+          <Link
+            className="flex items-center gap-2"
+            to={"/dashboard/restaurants"}
+          >
+            <FaSearch />
+            Find Restaurants
+          </Link>
+          <Link className="flex items-center gap-2" to={"/dashboard/history"}>
+            <FaHistory />
+            My Bookings
+          </Link>
           <p className="font-dinney">
             Welcome, <span className="font-semibold">{userInfo.name}</span>
           </p>
@@ -78,6 +98,13 @@ export default function Navbar() {
               Change Password
             </button> */}
 
+            <button
+              onClick={() => navigate("/profile")}
+              className="flex items-center gap-3 text-slate-600 hover:bg-gray-200 duration-300 px-5 py-3 w-full"
+            >
+              <FaUserCircle />
+              My Profile
+            </button>
             <button
               onClick={logout}
               className="flex items-center gap-3 text-red-600 hover:bg-gray-200 duration-300 px-5 py-3 w-full"
