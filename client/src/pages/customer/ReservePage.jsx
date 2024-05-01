@@ -262,7 +262,13 @@ export default function ReservePage() {
             disabled={!restaurantData?.tableId}
             name={"Next"}
           />
-          <Button onClick={() => navigate("/dashboard")} name={"Cancel"} />
+          <Button
+            onClick={() => {
+              dispatch(resetData());
+              navigate("/dashboard");
+            }}
+            name={"Cancel"}
+          />
         </div>
       )}
 
